@@ -4,6 +4,7 @@ using GameDev.Library;
 using HmsPlugin;
 
 using HuaweiMobileServices.AuthService;
+using HuaweiMobileServices.AppMessaging;
 using HuaweiMobileServices.Drive;
 using HuaweiMobileServices.Id;
 using HuaweiMobileServices.InAppComment;

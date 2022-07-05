@@ -149,15 +149,6 @@ namespace StackGamePlay
 
             mCloudQuery.EqualTo("huaweiIdMail", GameManager.Instance.Uid);
 
-
-
-            //            return CallAsWrapper<CloudDBZoneQuery>("in", new object[2]
-            //{
-            //                fieldName,
-            //                value
-            //});
-
-
             cloudDBManager.ExecuteQuery(mCloudQuery, CloudDBZoneQuery.CloudDBZoneQueryPolicy.CLOUDDBZONE_CLOUD_CACHE);
         }
 
@@ -168,24 +159,8 @@ namespace StackGamePlay
             GLog.Log($"AddSession", GLogName.CloudDBManager);
 
             var gameSession = new GameSessions();
-
             var token = Guid.NewGuid().ToString();
-
             var sessionNumber = ++SessionNumber;
-
-            //Debug.Log($"------ AddSession 1");
-
-            //Debug.Log($"Email {huaweiID.Email}");
-            //Debug.Log($"DisplayName {huaweiID.DisplayName}");
-            ////Debug.Log($"DisplayName {huaweiID.EmailVerified}");
-
-            //Debug.Log($"------ AddSession 2");
-
-            //Debug.Log($"Uid {huaweiID.Uid}");
-            //Debug.Log($"ProviderId {huaweiID.ProviderId}");
-            //Debug.Log($"FamilyName {huaweiID.Phone}");
-
-            //Debug.Log($"------ AddSession 3");
 
             gameSession.HuaweiIdMail = GameManager.Instance.Uid;
             gameSession.Id = token;
@@ -434,3 +409,20 @@ namespace StackGamePlay
 //Debug.Log($"RequestedScopes {huaweiID.RequestedScopes}");
 //Debug.Log($"Uid {huaweiID.Uid}");
 //Debug.Log($"UnionId {huaweiID.UnionId}");
+
+
+
+
+//Debug.Log($"------ AddSession 1");
+
+//Debug.Log($"Email {huaweiID.Email}");
+//Debug.Log($"DisplayName {huaweiID.DisplayName}");
+////Debug.Log($"DisplayName {huaweiID.EmailVerified}");
+
+//Debug.Log($"------ AddSession 2");
+
+//Debug.Log($"Uid {huaweiID.Uid}");
+//Debug.Log($"ProviderId {huaweiID.ProviderId}");
+//Debug.Log($"FamilyName {huaweiID.Phone}");
+
+//Debug.Log($"------ AddSession 3");
