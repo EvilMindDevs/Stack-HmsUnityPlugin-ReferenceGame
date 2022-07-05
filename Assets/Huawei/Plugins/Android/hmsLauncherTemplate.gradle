@@ -1,0 +1,23 @@
+apply plugin: 'com.huawei.agconnect'
+
+dependencies {
+	implementation 'com.huawei.hms:base:6.4.0.303'
+	implementation 'com.huawei.agconnect:agconnect-core:1.6.5.300'
+	implementation 'com.android.support:appcompat-v7:21.0.0'
+	implementation 'com.huawei.hms:ads-lite:13.4.54.300'
+	implementation 'com.huawei.hms:ads-consent:3.4.54.300'
+	implementation 'com.huawei.hms:ads-identifier:3.4.39.302'
+	implementation 'com.huawei.hms:hwid:6.4.0.301'
+	implementation 'com.huawei.hms:game:6.2.0.301'
+	implementation 'com.huawei.hms:push:6.3.0.304'
+	implementation 'com.huawei.hms:hianalytics:6.4.1.302'
+	implementation 'com.huawei.agconnect:agconnect-auth:1.6.3.300'
+	implementation 'com.huawei.hms:iap:6.4.0.301'
+	implementation 'com.huawei.agconnect:agconnect-remoteconfig:1.6.3.300'
+	implementation 'com.huawei.agconnect:agconnect-crash:1.6.5.300'
+	implementation 'com.huawei.agconnect:agconnect-cloud-database:1.5.0.300'
+	implementation 'com.huawei.hms:nearby:6.2.0.301'
+	implementation 'com.huawei.agconnect:agconnect-appmessaging:1.6.3.300'
+	implementation 'com.huawei.agconnect:agconnect-applinking:1.6.5.300'
+	
+}
