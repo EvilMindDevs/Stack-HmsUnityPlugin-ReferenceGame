@@ -381,7 +381,7 @@ In this project we are using those kits:
 
 `Purpose In Project` : Broadcasting the game as if it is being played live on another device by transferring input
 
- `Use In Project` : In "Pre" unity-scene , there is a NearbyDeviceManager gameobject.This includes `NearbyDeviceManager`, `NearbyServer` and `NearbyClient` scripts.We are transferring input to other device by there scripts.There scripts subscribes Touch and TapToPlay events at `DelegateStore`.
+ `Use In Project` : In "Pre" unity-scene , there is a NearbyDeviceManager gameobject.This includes `NearbyDeviceManager`, `NearbyServer` and `NearbyClient` scripts.We are transferring input to other device by these scripts.These scripts subscribes Touch and TapToPlay events at `DelegateStore`.
 
  
 ## CloudDB
