@@ -11,9 +11,9 @@ each other as high as you can.
 <table>
 
   <tr>
-    <td><img src="https://github.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/blob/main/Assets/Images/pic1.jpg" width=250 height=535></td>
-    <td><img src="https://github.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/blob/main/Assets/Images/pic5.jpg" width=250 height=535></td>
-    <td><img src="https://github.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/blob/main/Assets/Images/pic3.jpg" width=250  height=535></td>
+    <td><img src="https://raw.githubusercontent.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/Master/Assets/Images/pic1.jpg" width=250 height=535></td>
+    <td><img src="https://raw.githubusercontent.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/Master/Assets/Images/pic3.jpg" width=250 height=535></td>
+    <td><img src="https://raw.githubusercontent.com/EvilMindDevs/Stack-HmsUnityPlugin-ReferenceGame/Master/Assets/Images/pic5.jpg" width=250  height=535></td>
 
   </tr>
  </table>
