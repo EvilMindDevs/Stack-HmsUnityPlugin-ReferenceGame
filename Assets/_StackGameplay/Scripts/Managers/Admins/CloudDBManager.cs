@@ -109,7 +109,7 @@ namespace StackGamePlay
             cloudDBManager = HMSCloudDBManager.Instance;
             cloudDBManager.Initialize();
             cloudDBManager.GetInstance(AGConnectInstance.GetInstance(), AGConnectAuth.GetInstance());
-            cloudDBManager.OnExecuteQuerySuccess = OnExecuteQuerySuccess;
+          //  cloudDBManager.OnExecuteQuerySuccess = OnExecuteQuerySuccess;
             cloudDBManager.OnExecuteQueryFailed = OnExecuteQueryFailed;
 
             CreateObjectType();
@@ -167,7 +167,7 @@ namespace StackGamePlay
             gameSession.SessionNumber = sessionNumber;
             gameSession.Score = score;
 
-            cloudDBManager.ExecuteUpsert(gameSession);
+         //   cloudDBManager.ExecuteUpsert(gameSession);
         }
 
 

@@ -3,10 +3,8 @@ using HuaweiMobileServices.Base;
 using HuaweiMobileServices.CloudDB;
 using HuaweiMobileServices.Common;
 using HuaweiMobileServices.Utils;
-
 using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 namespace HmsPlugin
 {
@@ -27,7 +25,7 @@ namespace HmsPlugin
         public Action<int> OnExecuteDeleteSuccess { get; set; }
         public Action<HMSException> OnExecuteDeleteFailed { get; set; }
 
-        public Action<CloudDBZoneSnapshot<GameSessions>> OnExecuteQuerySuccess { get; set; }
+        public Action<CloudDBZoneSnapshot<BookInfo>> OnExecuteQuerySuccess { get; set; }
         public Action<HMSException> OnExecuteQueryFailed { get; set; }
 
         public Action<double> OnExecuteAverageQuerySuccess { get; set; }
@@ -45,7 +43,7 @@ namespace HmsPlugin
         public Action<long> OnExecuteCountQuerySuccess { get; set; }
         public Action<HMSException> OnExecuteCountQueryFailed { get; set; }
 
-        public Action<CloudDBZoneSnapshot<GameSessions>> OnExecuteQueryUnsyncedSuccess { get; set; }
+        public Action<CloudDBZoneSnapshot<BookInfo>> OnExecuteQueryUnsyncedSuccess { get; set; }
         public Action<HMSException> OnExecuteQueryUnsyncedFailed { get; set; }
 
         public Action<CloudDBZoneSnapshot<BookInfo>> OnCloudDBZoneSnapshot { get; set; }
@@ -146,7 +144,7 @@ namespace HmsPlugin
             mCloudDB.UpdateDataEncryptionKey().AddOnSuccessListener(result => { }).AddOnFailureListener(error => { });
         }
 
-        public void ExecuteUpsert(ICloudDBZoneObject obj)
+        public void ExecuteUpsert(BookInfo obj)
         {
             if (mCloudDBZone == null)
             {
@@ -246,7 +244,7 @@ namespace HmsPlugin
                 return;
             }
 
-            mCloudDBZone.ExecuteQuery<GameSessions>(query, CloudDBZoneQueryPolicy)
+            mCloudDBZone.ExecuteQuery<BookInfo>(query, CloudDBZoneQueryPolicy)
                 .AddOnSuccessListener(snapshot =>
                 {
                     Debug.Log($"[{TAG}]: mCloudDBZone.ExecuteQuery AddOnSuccessListener");
@@ -383,7 +381,7 @@ namespace HmsPlugin
                 return;
             }
 
-            mCloudDBZone.ExecuteQueryUnsynced<GameSessions>(query)
+            mCloudDBZone.ExecuteQueryUnsynced<BookInfo>(query)
                 .AddOnSuccessListener(result =>
                 {
                     OnExecuteQueryUnsyncedSuccess?.Invoke(result);

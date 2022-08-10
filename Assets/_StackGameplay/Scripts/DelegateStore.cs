@@ -28,6 +28,7 @@ namespace StackGamePlay
         public static Action<string> ShowNearbyDeviceStatus;
         public static Action<NearbyDeviceType> SetNearbyDeviceType;
 
+       public static Action<double,double> ShowLocation;
 
     }
 }

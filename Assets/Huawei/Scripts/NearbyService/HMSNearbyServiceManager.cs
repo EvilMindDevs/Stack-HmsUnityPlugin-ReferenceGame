@@ -1,9 +1,7 @@
 using HuaweiMobileServices.Nearby;
 using HuaweiMobileServices.Nearby.Discovery;
 using HuaweiMobileServices.Nearby.Transfer;
-
 using System;
-
 using UnityEngine;
 
 namespace HmsPlugin
@@ -15,29 +13,13 @@ namespace HmsPlugin
         //Starting Broadcasting
         public void SendFilesInner(IConnectCallBack connectCallBack)
         {
-            mEndpointName = SystemInfo.deviceName;
-            Debug.Log("[HMS:] NearbyManager device name " + mEndpointName);
-
             Action mOnFailureListener;
             // Obtain the endpoint information.
             // Select a broadcast policy.
             BroadcastOption advBuilder = new BroadcastOption.Builder().SetPolicy(Policy.POLICY_P2P).Build();
 
             // Start broadcasting.
-            var task = Nearby.DiscoveryEngine.StartBroadcasting(mEndpointName, mFileServiceId, connectCallBack, advBuilder);
-
-            task.AddOnSuccessListener((result) =>
-            {
-                Debug.Log("[HMS:] NearbyManager Success " + result);
-
-            }).AddOnFailureListener((exception) =>
-            {
-                Debug.Log("[HMS:] NearbyManager Failed " + exception.ErrorCode + " message " + exception.WrappedCauseMessage + " message2 " + exception.WrappedExceptionMessage);
-                Debug.Log("[HMS:] NearbyManager Failed2 " + exception.ToString() + " message " + exception.Message + " message2 " + exception.StackTrace);
-                Debug.Log("[HMS:] NearbyManager Failed3 " + exception.InnerException + " message " + exception.TargetSite + " message2 " + exception.Source);
-
-            });
-
+            Nearby.DiscoveryEngine.StartBroadcasting(mEndpointName, mFileServiceId, connectCallBack, advBuilder);
             Debug.Log("Nearby: Start Broadcasting");
         }
 
@@ -45,22 +27,9 @@ namespace HmsPlugin
         public void OnScanResult(IScanEndpointCallback scanEndpointCallback)
         {
             Debug.Log("Nearby: OnScanResult1 Start Scan");
-            ScanOption scanBuilder = new ScanOption.Builder().SetPolicy(Policy.POLICY_P2P).Build();
+            ScanOption scanBuilder = new ScanOption.Builder().SetPolicy(Policy.POLICY_P2P).Build(); ;
             // Start scanning.
-            var startScan = Nearby.DiscoveryEngine.StartScan(mFileServiceId, scanEndpointCallback, scanBuilder);
-
-            startScan.AddOnSuccessListener((result) =>
-            {
-                Debug.Log("[HMS:] NearbyManager StartScan Success " + result);
-
-            }).AddOnFailureListener((exception) =>
-            {
-                Debug.Log("[HMS:] NearbyManager Failed " + exception.ErrorCode + " message " + exception.WrappedCauseMessage + " message2 " + exception.WrappedExceptionMessage);
-                Debug.Log("[HMS:] NearbyManager Failed2 " + exception.ToString() + " message " + exception.Message + " message2 " + exception.StackTrace);
-                Debug.Log("[HMS:] NearbyManager Failed3 " + exception.InnerException + " message " + exception.TargetSite + " message2 " + exception.Source);
-
-            });
-            Debug.Log("NearbyManager: OnScanResult3 Start Scan");
+            Nearby.DiscoveryEngine.StartScan(mFileServiceId, scanEndpointCallback, scanBuilder);
         }
 
         //Stopping Broadcasting
@@ -78,16 +47,12 @@ namespace HmsPlugin
         }
         public void InitiateConnection(string endpointId, ScanEndpointInfo scanEndpointInfo, IConnectCallBack connectCallBack)
         {
-            //if (scanEndpointInfo.Name.Equals(scanInfo))
-            //{
-            //    Debug.Log("[HMS] Nearby Client found Server and request connection. Server id:" + scanEndpointInfo.Name);
-            //    // Initiate a connection.
-            //    Nearby.DiscoveryEngine.RequestConnect(myNameStr, endpointId, connectCallBack);
-            //}
-
-            Debug.Log("[HMS] Nearby Client found Server and request connection. Server id:" + scanEndpointInfo.Name);
-            // Initiate a connection.
-            Nearby.DiscoveryEngine.RequestConnect(myNameStr, endpointId, connectCallBack);
+            if (scanEndpointInfo.Name.Equals(scanInfo))
+            {
+                Debug.Log("[HMS] Nearby Client found Server and request connection. Server id:" + scanEndpointInfo.Name);
+                // Initiate a connection.
+                Nearby.DiscoveryEngine.RequestConnect(myNameStr, endpointId, connectCallBack);
+            }
         }
 
         // Confirming the Connection
@@ -110,14 +75,6 @@ namespace HmsPlugin
             var message = System.Text.Encoding.UTF8.GetBytes(transmittingMessage);
             Nearby.TransferEngine.SendData(remoteEndpointId, Data.FromBytes(message));
         }
-
-        //Transmitting Byte Arrays
-        public void SendData(string remoteEndpointId, string transmittingData)
-        {
-            var message = System.Text.Encoding.UTF8.GetBytes(transmittingData);
-            Nearby.TransferEngine.SendData(remoteEndpointId, Data.FromBytes(message));
-        }
-
     }
 }
 

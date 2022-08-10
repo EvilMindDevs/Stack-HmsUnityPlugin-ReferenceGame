@@ -15,13 +15,36 @@ public class NearbyDemoManager : MonoBehaviour
     private NearbyManagerListener nearbyManagerListener;
 
     private static readonly String scanInfo = "testInfo", remoteEndpointId = "RemoteEndpointId", transmittingMessage = "Receive Success",
-          myNameStr = "MyNameTest", mEndpointName = "testName", mFileServiceId = "com.refapp.stack.huawei";
+          myNameStr = "MyNameTest", mEndpointName = "testName", mFileServiceId = "testID";
 
     public Action<string> OnDisconnected { get; set; }
     public Action<string, ConnectInfo> OnEstablish { get; set; }
     public Action<string, ConnectResult> OnResult { get; set; }
     public Action<string, ScanEndpointInfo> OnFound { get; set; }
     public Action<string> OnLost { get; set; }
+
+
+    #region Singleton
+
+    public static NearbyDemoManager Instance { get; private set; }
+    private void Singleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    #endregion
+
+    private void Awake()
+    {
+        Singleton();
+    }
 
     void Start()
     {
@@ -40,12 +63,6 @@ public class NearbyDemoManager : MonoBehaviour
         nearbyManager.mFileServiceId = mFileServiceId;
     }
 
-    //public void sdfdsfsd()
-    //{
-    //    HMSNearbyServiceManager.Instance.SendData(clientEndPointID, PlayerPositionX);
-
-    //}
-
     void ApplyForFineLocationPermission()
     {
         if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
@@ -56,28 +73,38 @@ public class NearbyDemoManager : MonoBehaviour
 
     public void SendFilesInner()
     {
+        Debug.Log("SendFilesInner");
+
         NearbyManagerListener connectCallback = new NearbyManagerListener(this);
-        nearbyManager.SendFilesInner(connectCallback);
+        nearbyManager.SendFilesInner(nearbyManagerListener);
     }
 
     public void OnScanResult()
     {
+        Debug.Log("OnScanResult");
+
         NearbyManagerListener scanCallback = new NearbyManagerListener(this);
-        nearbyManager.OnScanResult(scanCallback);
+        nearbyManager.OnScanResult(nearbyManagerListener);
     }
 
     public void StopBroadCasting()
     {
+        Debug.Log("StopBroadCasting");
+
         nearbyManager.StopBroadCasting();
     }
 
     public void StopScanning()
     {
+        Debug.Log("StopScanning");
+
         nearbyManager.StopScanning();
     }
 
     public void DisconnectAllConnection()
     {
+        Debug.Log("DisconnectAllConnection");
+
         nearbyManager.DisconnectAllConnection();
     }
 

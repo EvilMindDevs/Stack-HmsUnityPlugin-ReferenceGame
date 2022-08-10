@@ -194,7 +194,7 @@ public class NearbyServer : GNearbyBehaviour
 
         if (NearbyDeviceManager.Instance.IsSender)
         {
-            HMSNearbyServiceManager.Instance.SendData(clientEndPointID, "gameclick");
+          //  HMSNearbyServiceManager.Instance.SendData(clientEndPointID, "gameclick");
             Debug.Log("SENDYES TOUCH");
         }
 
@@ -211,7 +211,7 @@ public class NearbyServer : GNearbyBehaviour
 
         if (NearbyDeviceManager.Instance.IsSender)
         {
-            HMSNearbyServiceManager.Instance.SendData(clientEndPointID, "taptostart");
+            //HMSNearbyServiceManager.Instance.SendData(clientEndPointID, "taptostart");
             Debug.Log("SENDYES TAPTOPLAY");
         }
 

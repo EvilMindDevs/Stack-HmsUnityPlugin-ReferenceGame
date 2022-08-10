@@ -1,12 +1,8 @@
-﻿
-using GameDev.Library;
+﻿using GameDev.Library;
 using GameDev.MiddleWare;
-
 using System;
 using System.Collections;
-
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,38 +12,32 @@ namespace StackGamePlay
     public class UIView : MonoBehaviour
     {
         #region Childs
-        [SerializeField]
-        private GameObject[] _MenuGameObjects;
-        [SerializeField]
-        private GameObject[] _SessionGameObjects;
-        [SerializeField]
-        private TextMeshProUGUI Txt_Score;
-        [SerializeField]
-        private TextMeshProUGUI Txt_TapToStart;
-        [SerializeField]
-        private Button _BtnTapToPlay;
-        [SerializeField]
-        private Button _BtnRemoveAds;
-        [SerializeField]
-        private Button _ShowLeaderboard;
-        [SerializeField]
-        private Button _ShowAchievements;
-        [SerializeField]
-        private Button _BtnShare;
-        [SerializeField]
-        private Button Btn_ShowScoreTablePopup;
 
-        [SerializeField]
-        private GameObject G_RemoveAds;
+        [SerializeField] private GameObject[] _MenuGameObjects;
+        [SerializeField] private GameObject[] _SessionGameObjects;
+        [SerializeField] private TextMeshProUGUI Txt_Score;
+        [SerializeField] private TextMeshProUGUI Txt_TapToStart;
+        [SerializeField] private Button _BtnTapToPlay;
+        [SerializeField] private Button _BtnRemoveAds;
+        [SerializeField] private Button _ShowLeaderboard;
+        [SerializeField] private Button _ShowAchievements;
+        [SerializeField] private Button _BtnShare;
+        [SerializeField] private Button Btn_ShowScoreTablePopup;
 
+        [SerializeField] private GameObject G_RemoveAds;
 
-        public Button BtnTapToPlay { get => _BtnTapToPlay; set => _BtnTapToPlay = value; }
-
+        public Button BtnTapToPlay
+        {
+            get => _BtnTapToPlay;
+            set => _BtnTapToPlay = value;
+        }
 
         #endregion
 
         #region Singleton
+
         public static UIView Instance;
+        public string tapToStartText = "Tap To PLAY";
 
 
         private void Singleton()
@@ -76,27 +66,21 @@ namespace StackGamePlay
             this.AddListener<object>(GEventName.SESSION_END, OnSessionEnd);
 
             DelegateStore.TapToPlay += delegate
-             {
-                 this.DispatchEvent(new GEvent<object>(GEventName.SESSION_STARTED, this));
-             };
+            {
+                this.DispatchEvent(new GEvent<object>(GEventName.SESSION_STARTED, this));
+            };
 
-            _BtnShare.onClick.AddListener(delegate ()
-             {
-                 DelegateStore.Share?.Invoke();
-             });
+            _BtnShare.onClick.AddListener(delegate() { DelegateStore.Share?.Invoke(); });
 
-            Btn_ShowScoreTablePopup.onClick.AddListener(delegate ()
+            Btn_ShowScoreTablePopup.onClick.AddListener(delegate()
             {
                 DelegateStore.ShowPopup?.Invoke(PopupType.ScoreTable);
             });
 
             DelegateStore.SetScore += OnSetScoreText;
             DelegateStore.SetAdsState += OnSetInAppPurchaseButton;
-
-
+            DelegateStore.ShowLocation += ShowLocation;
         }
-
-
 
         private void OnDisable()
         {
@@ -107,14 +91,10 @@ namespace StackGamePlay
 
             DelegateStore.TapToPlay = null;
 
-
-            _BtnShare.onClick.RemoveListener(delegate ()
-             {
-                 DelegateStore.Share?.Invoke();
-             });
+            _BtnShare.onClick.RemoveListener(delegate() { DelegateStore.Share?.Invoke(); });
             DelegateStore.SetScore -= OnSetScoreText;
             DelegateStore.SetAdsState -= OnSetInAppPurchaseButton;
-
+            DelegateStore.ShowLocation -= ShowLocation;
         }
         private void Start()
         {
@@ -166,15 +146,12 @@ namespace StackGamePlay
         private void OnSessionEnd(object sender, GEvent<object> eventData)
         {
             GLog.Log($"OnSessionEnd", GLogName.UIManager);
-            Txt_TapToStart.text = "Tap To REPLAY";
+            Txt_TapToStart.text = tapToStartText;
             CloseAllUI();
             Txt_TapToStart.gameObject.SetActive(true);
             BtnTapToPlay.gameObject.SetActive(true);
             BtnTapToPlay.onClick.RemoveAllListeners();
-            BtnTapToPlay.onClick.AddListener(delegate
-            {
-                SceneManager.LoadScene("GameScene");
-            });
+            BtnTapToPlay.onClick.AddListener(delegate { SceneManager.LoadScene("GameScene"); });
         }
 
         #endregion
@@ -184,6 +161,18 @@ namespace StackGamePlay
         {
             Txt_Score.text = score.ToString();
         }
+
+        #endregion
+
+        #region Events: ShowLocation
+
+        private void ShowLocation(double lat, double log)
+        {
+           var latitude =String.Format("{0:0.00}", lat);     
+           var longitude =String.Format("{0:0.00}", log);     
+            tapToStartText = "Tap To REPLAY in \n latitude" + latitude + "\n longitude " + longitude;
+        }
+
         #endregion
 
         #region ButtonClick: BuyProduct
@@ -276,11 +265,5 @@ namespace StackGamePlay
         }
 
         #endregion
-
-
     }
-
-
-
-
 }

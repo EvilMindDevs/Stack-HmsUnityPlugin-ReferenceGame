@@ -8,7 +8,7 @@ namespace HmsPlugin
 {
 	public class BookInfo : JavaObjectWrapper, ICloudDBZoneObject
 	{
-		public BookInfo() : base("com.refapp.stack.huawei") { }
+		public BookInfo() : base("selam") { }
 		public BookInfo(AndroidJavaObject javaObject) : base(javaObject) { }
 		private int id;
 		private string bookName;

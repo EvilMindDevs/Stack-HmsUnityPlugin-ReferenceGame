@@ -2734,7 +2734,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f908d9d2df2079944a8fc33e069c541f, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8624,7 +8623,9 @@ MonoBehaviour:
   _ShowAchievements: {fileID: 1477226135}
   _BtnShare: {fileID: 1950789230}
   Btn_ShowScoreTablePopup: {fileID: 748928537}
+  Btn_UploadScore: {fileID: 0}
   G_RemoveAds: {fileID: 617026785}
+  tapToStartText: Tap To PLAY
 --- !u!1 &1710713327
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,8 @@ MonoBehaviour:
     - NearbyService
     - AppMessaging
     - AppLinking
+    - DriveKit
+    - Location
     _values:
     - True
     - True
@@ -42,4 +44,6 @@ MonoBehaviour:
     - True
     - True
     - True
+    - True
+    - False
     - True

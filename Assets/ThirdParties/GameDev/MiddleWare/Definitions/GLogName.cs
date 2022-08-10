@@ -25,6 +25,7 @@ namespace GameDev.Library
         NearbyDeviceManager,
         NearbyClient,
         NearbyServer,
-        UIView
+        UIView,
+        LocationKitManager
     }
 }
