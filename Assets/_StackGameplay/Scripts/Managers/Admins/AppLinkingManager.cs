@@ -29,7 +29,7 @@ namespace StackGamePlay
         private static string shortLink;
         private static string longLink;
         private readonly string deepLink = "https://github.com/bunyamineymen";
-        private readonly string uriPrefix = "https://stackgame.dre.agconnect.link";
+        private readonly string uriPrefix = "https://stackpro.drru.agconnect.link";
         #endregion
         #region Singleton
         public static AppLinkingManager Instance;
