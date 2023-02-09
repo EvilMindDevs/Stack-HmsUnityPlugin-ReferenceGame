@@ -29,8 +29,8 @@ namespace StackGamePlay
 
         private HMSCloudDBManager cloudDBManager = null;
         private readonly string cloudDBZoneName = "Main";
-        private readonly string GameSessionsClass = "com.refapp.stack.huawei.GameSessions";
-        private readonly string ObjectTypeInfoHelper = "com.refapp.stack.huawei.ObjectTypeInfoHelper";
+        private readonly string GameSessionsClass = "com.refapp.stackpro.huawei.GameSessions";
+        private readonly string ObjectTypeInfoHelper = "com.refapp.stackpro.huawei.ObjectTypeInfoHelper";
 
         List<GameSessions> gameSessionsList = new List<GameSessions>();
         public List<GameSessions> GameSessionsList { get => gameSessionsList; set => gameSessionsList = value; }
