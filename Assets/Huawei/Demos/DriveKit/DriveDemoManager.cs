@@ -89,7 +89,7 @@ public class DriveDemoManager : MonoBehaviour
 
         string fileName = "testFile.txt";
         string filePath = System.IO.Path.Combine(Application.persistentDataPath, fileName);
-        File file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".txt"), filePath, fileName);
+        File file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".txt"), filePath);
         string log = (file == null) ? "CreateFiles Failed" : "CreateFiles Success file.ID:" + file.GetId();
         DriveKitLog?.Invoke(log);
     }

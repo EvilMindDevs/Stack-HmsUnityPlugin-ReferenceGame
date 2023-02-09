@@ -149,7 +149,7 @@ public class DriveKitManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        var file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".png"), filePath, fileName);
+        var file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".png"), filePath + fileName);
 
         bool state = file == null;
         Debug.Log($"state {state}");

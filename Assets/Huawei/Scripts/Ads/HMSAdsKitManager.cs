@@ -307,7 +307,7 @@ namespace HmsPlugin
 
         private void BannerAdStatusListener_mOnAdFailed(object sender, AdLoadErrorCodeEventArgs e)
         {
-            Debug.LogError(TAG + "BannerAdLoadFailed. Error Code: " + e.ErrorCode);
+            Debug.LogError(TAG+"BannerAdLoadFailed. Error Code: " + e.ErrorCode);
             OnBannerFailedToLoadEvent?.Invoke();
         }
 
