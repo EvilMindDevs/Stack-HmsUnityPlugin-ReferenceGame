@@ -2,10 +2,7 @@
 using GameDev.Library;
 using GameDev.MiddleWare;
 
-using HmsPlugin;
-
 using System.Collections;
-using System.Threading.Tasks;
 
 using UnityEngine;
 

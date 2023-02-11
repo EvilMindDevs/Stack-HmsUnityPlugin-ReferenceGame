@@ -100,7 +100,7 @@ public class DriveKitManager : MonoBehaviour
         number++;
         PlayerPrefs.SetInt("SSNo", number);
 
-        string filePath = $"{Application.persistentDataPath}/screenshot{number}.png";
+        string filePath = $"{Application.persistentDataPath}/";
         string fileName = $"screenshot{number}.png";
 
         GLog.Log($"filePath {filePath}", GLogName.DriveKitManager);
@@ -143,13 +143,13 @@ public class DriveKitManager : MonoBehaviour
         byte[] imageBytes = screenImage.EncodeToPNG();
 
         //Save image to file
-        System.IO.File.WriteAllBytes(filePath, imageBytes);
+        System.IO.File.WriteAllBytes(filePath + fileName, imageBytes);
 
         DelegateStore.UISessionEnd?.Invoke();
 
         yield return new WaitForEndOfFrame();
 
-        var file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".png"), filePath + fileName);
+        var file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix(".png"), filePath, fileName);
 
         bool state = file == null;
         Debug.Log($"state {state}");
