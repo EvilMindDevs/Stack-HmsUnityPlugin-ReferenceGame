@@ -3,8 +3,10 @@ using HuaweiMobileServices.Drive;
 using HuaweiMobileServices.Game;
 using HuaweiMobileServices.Id;
 using HuaweiMobileServices.Utils;
+
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace HmsPlugin
@@ -21,7 +23,7 @@ namespace HmsPlugin
             if (!HMSDispatcher.InstanceExists)
                 HMSDispatcher.CreateDispatcher();
             HMSDispatcher.InvokeAsync(OnAwake);
-        }       
+        }
 
         private void OnAwake()
         {
@@ -34,17 +36,20 @@ namespace HmsPlugin
         }
 
         //https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/client-drive-files-create-0000001050125997#section38411940183416
-        public File CreateFiles(String type, String filePath)
+        public File CreateFiles(String type, String path, String fileName)
         {
             File file = null;
-            if (filePath == null)
+
+            var filePath = path + fileName;
+
+            if (path == null)
             {
                 Debug.LogError(TAG + "createFile error, filePath is null");
                 return file;
             }
             else if (!System.IO.File.Exists(filePath))
             {
-                Debug.LogError(TAG + "createFile error, filePath notExists. FilePath:" + filePath);
+                Debug.LogError(TAG + "createFile error, filePath notExists. FilePath:" + path);
                 return file;
             }
 
@@ -52,7 +57,7 @@ namespace HmsPlugin
             {
                 // Create or upload a file.
                 FileContent fileContent = new FileContent(type, new HuaweiMobileServices.Utils.java.io.File(filePath));
-                File fileInfo = new File().SetFileName("testFile.txt");
+                File fileInfo = new File().SetFileName(fileName);
                 file = drive.files().create(fileInfo, fileContent).Execute();
                 Debug.Log(TAG + "CreateFiles success mFile.GetId()" + file.GetId());
                 recentlyCreatedFile = file;
@@ -64,7 +69,7 @@ namespace HmsPlugin
             return file;
         }
 
-        public void CreateFolder(string folderName = "testDir") 
+        public void CreateFolder(string folderName = "testDir")
         {
             // Create a folder.
             File dir = new File().SetFileName(folderName)
@@ -76,13 +81,13 @@ namespace HmsPlugin
         {
             List<Comment> commentArrayList = new List<Comment>();
 
-            if (fileId == "") 
+            if (fileId == "")
             {
-                if(recentlyCreatedFile != null) 
+                if (recentlyCreatedFile != null)
                 {
                     fileId = recentlyCreatedFile.GetId();// Use recently created file's ID
                 }
-                else 
+                else
                 {
                     return commentArrayList;
                 }
@@ -133,7 +138,7 @@ namespace HmsPlugin
                     return comment;
                 }
             }
-            
+
             try
             {
                 Comment content = new Comment();
@@ -157,7 +162,7 @@ namespace HmsPlugin
                 FileList list = drive.files().list().Execute();
                 string nextCursor = list.GetNextCursor();
                 Debug.Log(TAG + "ListFile nextCursor string.IsNullOrEmpty(nextCursor):" + string.IsNullOrEmpty(nextCursor));
-                while (!string.IsNullOrEmpty(nextCursor)) 
+                while (!string.IsNullOrEmpty(nextCursor))
                 {
                     nextCursor = list.GetNextCursor();
                 }
