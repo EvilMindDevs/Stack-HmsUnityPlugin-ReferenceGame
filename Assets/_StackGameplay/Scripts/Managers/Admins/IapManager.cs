@@ -7,9 +7,7 @@ using HmsPlugin;
 using HuaweiMobileServices.IAP;
 using HuaweiMobileServices.Utils;
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using UnityEngine;
 

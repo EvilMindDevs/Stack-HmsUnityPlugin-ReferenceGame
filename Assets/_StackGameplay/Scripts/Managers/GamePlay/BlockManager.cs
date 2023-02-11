@@ -59,6 +59,7 @@ namespace StackGamePlay
             InitGame();
             StartCoroutine(OnWaitForStart());
         }
+
         #region Singleton
         public static BlockManager Instance;
         private void Singleton()
@@ -84,6 +85,14 @@ namespace StackGamePlay
             gameData = MechanicManager.Instance.GameData;
             DelegateStore.Touch += OnTouch;
             currentBlockScale = gameData.initialBlockScale;
+
+            Debug.Log($"initialBlockScale {gameData.initialBlockScale}");
+            //Debug.Log($"initialBlockScale {gameData.}");
+            //Debug.Log($"initialBlockScale {gameData.initialBlockScale}");
+            //Debug.Log($"initialBlockScale {gameData.initialBlockScale}");
+
+
+
             currentBlockCount = -1;
             randomColorOffset = RealTimeDataStore.BackgroundColorIndex;
             //randomColorOffset = Random.Range(0f, gameData.colorPalette.Length - 1f);

@@ -8,7 +8,7 @@ namespace HmsPlugin
 {
 	public class GameSessions : JavaObjectWrapper, ICloudDBZoneObject
 	{
-		public GameSessions() : base("com.refapp.stackpro.huawei") { }
+		public GameSessions() : base("com.refapp.stackpro.huawei.GameSessions") { }
 		public GameSessions(AndroidJavaObject javaObject) : base(javaObject) { }
 		private string id;
 		private string huaweiIdMail;

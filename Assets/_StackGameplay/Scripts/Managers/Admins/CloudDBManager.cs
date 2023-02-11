@@ -28,7 +28,7 @@ namespace StackGamePlay
         private const string LOGIN_ERROR = "Error or cancelled login";
 
         private HMSCloudDBManager cloudDBManager = null;
-        private readonly string cloudDBZoneName = "Main";
+        private readonly string cloudDBZoneName = "clouddbzone";
         private readonly string GameSessionsClass = "com.refapp.stackpro.huawei.GameSessions";
         private readonly string ObjectTypeInfoHelper = "com.refapp.stackpro.huawei.ObjectTypeInfoHelper";
 
