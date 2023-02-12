@@ -1,4 +1,5 @@
 ﻿using HuaweiMobileServices.Utils;
+
 using UnityEngine;
 
 namespace HuaweiMobileServices.CloudStorage
@@ -7,7 +8,11 @@ namespace HuaweiMobileServices.CloudStorage
     {
         public DownloadTask(AndroidJavaObject javaObject) : base(javaObject) { }
 
-        //private static AndroidJavaClass javaClass = new AndroidJavaClass("com.huawei.agconnect.cloud.storage.core.DownloadTask");
+        private static AndroidJavaClass javaClass = new AndroidJavaClass("com.huawei.agconnect.cloud.storage.core.DownloadTask");
+
+
+        public void OnCanceled() => Call("onCanceled");
+        public void OnPaused() => Call("onPaused");
 
 
         public class DownloadResult : TimePointStateBase
