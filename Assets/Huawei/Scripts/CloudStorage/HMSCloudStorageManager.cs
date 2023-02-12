@@ -44,6 +44,7 @@ namespace HmsPlugin
         {
             if (!HMSDispatcher.InstanceExists)
                 HMSDispatcher.CreateDispatcher();
+
             HMSDispatcher.InvokeAsync(InitAGCStorageManagement);
         }
 
@@ -111,26 +112,32 @@ namespace HmsPlugin
             });
         }
 
-        public void DownloadFile(string filePathInCloudStorage = "/files/test/testImage.jpg", string whereToDownload = "")
+        public DownloadTask DownloadFile(string fileName, string filePathInCloudStorage = "", string whereToDownload = "")
         {
+            Debug.Log($"{TAG} Download File");
+
             if (mAGCStorageManagement == null)
             {
                 InitAGCStorageManagement();
             }
-            if (whereToDownload == "")
-            {
-                string fileName = "testDownloaded.jpg";
-                whereToDownload = System.IO.Path.Combine(Application.persistentDataPath, fileName);
-            }
 
-            var file = new HuaweiMobileServices.Utils.java.io.File(whereToDownload);
+            string downloadDirectory = System.IO.Path.Combine(Application.persistentDataPath + "", whereToDownload);
 
-            StorageReference storageReference = mAGCStorageManagement.GetStorageReference(filePathInCloudStorage);
+            var file = new HuaweiMobileServices.Utils.java.io.File(downloadDirectory + fileName);
+
+            StorageReference storageReference = mAGCStorageManagement.GetStorageReference(filePathInCloudStorage + fileName);
             DownloadTask downloadTask = storageReference.GetFile(file);
+
+            Debug.Log($"filePathInCloudStorage + fileName {filePathInCloudStorage + fileName}");
+            Debug.Log($"downloadDirectory + fileName {downloadDirectory + fileName}");
+
 
             downloadTask.AddOnSuccessListener(result =>
             {
-                Debug.Log($"{TAG} successfully DownloadFile");
+                var _result = (DownloadResult)result;
+
+                Debug.Log($"{TAG} successfully DownloadFile , {_result.TotalByteCount}");
+
                 OnDownloadFileSuccess?.Invoke((DownloadResult)result);
             }); ;
             downloadTask.AddOnFailureListener(exception =>
@@ -139,6 +146,8 @@ namespace HmsPlugin
                 OnDownloadFileFailure?.Invoke(exception);
                 OnAllFailureListeners?.Invoke(exception);
             });
+
+            return downloadTask;
 
         }
 
@@ -261,8 +270,13 @@ namespace HmsPlugin
             });
         }
 
+        private static AndroidJavaClass sJavaClass = new AndroidJavaClass("org.m0skit0.android.hms.unity.storage.StoragePermissions");
 
-
+        public static void RequestPermission()
+        {
+            sJavaClass.CallStatic("requestStoragePermissions", AndroidContext.ActivityContext);
+            //sJavaClass.CallStatic("requestStoragePermissions", AndroidContext.ApplicationContext);
+        }
 
     }
 }

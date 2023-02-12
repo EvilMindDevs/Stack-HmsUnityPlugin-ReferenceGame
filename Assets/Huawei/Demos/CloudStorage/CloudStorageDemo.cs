@@ -36,7 +36,7 @@ public class CloudStorageDemo : MonoBehaviour
 
     public void DownloadFile()
     {
-        HMSCloudStorageManager.Instance.DownloadFile();
+        HMSCloudStorageManager.Instance.DownloadFile("testFile.jpg");
     }
 
     public void DeleteFile()
