@@ -68,8 +68,8 @@ public class CloudStorageManager : MonoBehaviour
     {
         Debug.Log("PHASE_1");
 
-        var fullPathFile1 = Application.persistentDataPath + "/gameoverCanvas";
-        var fullPathFile2 = Application.persistentDataPath + "/gameoverCanvas.manifest";
+        var fullPathFile1 = Application.persistentDataPath + "/gameovercanvas";
+        var fullPathFile2 = Application.persistentDataPath + "/gameovercanvas.manifest";
 
         Debug.Log($"PHASE_1.1 ,fullPathFile1: {fullPathFile1},fullPathFile2 {fullPathFile2}");
 
@@ -82,10 +82,10 @@ public class CloudStorageManager : MonoBehaviour
         DownloadTask task2;
 
         if (!state1)
-            task1 = HMSCloudStorageManager.Instance.DownloadFile("/gameoverCanvas", "", "");
+            task1 = HMSCloudStorageManager.Instance.DownloadFile("/gameovercanvas", "", "");
 
         if (!state2)
-            task2 = HMSCloudStorageManager.Instance.DownloadFile("/gameoverCanvas.manifest", "", "");
+            task2 = HMSCloudStorageManager.Instance.DownloadFile("/gameovercanvas.manifest", "", "");
 
         while (true)
         {
