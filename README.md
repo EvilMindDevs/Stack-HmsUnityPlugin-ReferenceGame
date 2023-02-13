@@ -576,3 +576,41 @@ var file = HMSDriveKitManager.Instance.CreateFiles(MimeType.MimeTypeFromSuffix("
 
 ```
 
+## Cloud Storage
+
+`Purpose In Project` : We want to reduce application size by fetching prefab and its texture content from remote with Huawei Cloud Storage and Unity Asset Bundle technology. Also this provides us a a flexible structure, with this structure we can easily change this prefab when we want without new release.
+
+ `Use In Project` : We are calling the GetAssetBundle Ienumarator method of `CloudStorageManager` 67 at app initialize.
+
+```csharp
+
+bool state1 = File.Exists(fullPathFile1);
+bool state2 = File.Exists(fullPathFile2);
+
+DownloadTask task1;
+DownloadTask task2;
+
+if (!state1)
+task1 = HMSCloudStorageManager.Instance.DownloadFile("/gameoverCanvas", "", "");
+
+if (!state2)
+task2 = HMSCloudStorageManager.Instance.DownloadFile("/gameoverCanvas.manifest", "", "");
+
+```
+
+These commands are deserializing commands that transition from Asset Bundle file format to Unity scene object.
+
+```csharp
+
+AssetBundle orjinalAssetBundle = AssetBundle.LoadFromFile(fullPathFile1);
+
+var effectPrefab = (GameObject)orjinalAssetBundle.LoadAsset(fileName);
+var gameoverCanvas = Instantiate(effectPrefab);
+
+gameoverCanvas.SetActive(false);
+gameOverCanvas = gameoverCanvas;
+DontDestroyOnLoad(gameOverCanvas);
+
+```
+
+
