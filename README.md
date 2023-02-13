@@ -50,6 +50,7 @@ In this project we are using those kits:
 * [Location](https://evilminddevs.gitbook.io/hms-unity-plugin/kits-and-services/location-kit)
 * [APM](https://evilminddevs.gitbook.io/hms-unity-plugin/kits-and-services/apm)
 * [Drive](https://evilminddevs.gitbook.io/hms-unity-plugin/kits-and-services/drive-kit)
+* [Cloud Storage](https://evilminddevs.gitbook.io/hms-unity-plugin_/kits-and-services/cloud-storage)
 
 ## Account Kit
 
