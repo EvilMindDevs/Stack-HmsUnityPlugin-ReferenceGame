@@ -3,8 +3,11 @@ using GameDev.MiddleWare;
 
 using HmsPlugin;
 
+using HuaweiMobileServices.CloudStorage;
+
 using System;
-using System.Runtime.InteropServices.ComTypes;
+using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -12,10 +15,33 @@ using UnityEngine;
 public class CloudStorageManager : MonoBehaviour
 {
 
+    #region Monobehaviour
+
     private void Awake()
     {
         Singleton();
     }
+
+    private void OnEnable()
+    {
+        this.AddListener<object>(GEventName.SESSION_PREPARE, OnSessionPrepare);
+        this.AddListener<object>(GEventName.SESSION_STARTED, OnSessionStart);
+        this.AddListener<object>(GEventName.SESSION_END, OnSessionEnd);
+    }
+
+    private void OnDisable()
+    {
+        this.RemoveListener<object>(GEventName.SESSION_PREPARE, OnSessionPrepare);
+        this.RemoveListener<object>(GEventName.SESSION_STARTED, OnSessionStart);
+        this.RemoveListener<object>(GEventName.SESSION_END, OnSessionEnd);
+    }
+
+    private void Start()
+    {
+
+    }
+
+    #endregion
 
     #region Singleton
 
@@ -36,44 +62,83 @@ public class CloudStorageManager : MonoBehaviour
 
     #endregion
 
-    private void OnEnable()
+    public GameObject gameOverCanvas;
+
+    public IEnumerator GetAssetBundle()
     {
-        this.AddListener<object>(GEventName.SESSION_PREPARE, OnSessionPrepare);
+        Debug.Log("PHASE_1");
+
+        var fullPathFile1 = Application.persistentDataPath + "/levelendeffect";
+        var fullPathFile2 = Application.persistentDataPath + "/levelendeffect.manifest";
+
+        Debug.Log($"PHASE_1.1 ,fullPathFile1: {fullPathFile1},fullPathFile2 {fullPathFile2}");
+
+        string fileName = "gameovercanvas";
+
+        bool state1 = File.Exists(fullPathFile1);
+        bool state2 = File.Exists(fullPathFile2);
+
+        DownloadTask task1;
+        DownloadTask task2;
+
+        if (!state1)
+            task1 = HMSCloudStorageManager.Instance.DownloadFile("/levelendeffect", "", "");
+
+        if (!state2)
+            task2 = HMSCloudStorageManager.Instance.DownloadFile("/levelendeffect.manifest", "", "");
+
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if (File.Exists(fullPathFile1))
+            {
+                break;
+            }
+        }
+
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if (File.Exists(fullPathFile2))
+            {
+                break;
+            }
+        }
+
+        if (gameOverCanvas == null)
+        {
+            AssetBundle orjinalAssetBundle = AssetBundle.LoadFromFile(fullPathFile1);
+            var effectPrefab = (GameObject)orjinalAssetBundle.LoadAsset(fileName);
+            var gameoverCanvas = Instantiate(effectPrefab);
+
+            gameoverCanvas.SetActive(false);
+
+            gameOverCanvas = gameoverCanvas;
+            DontDestroyOnLoad(gameOverCanvas);
+        }
+    }
+
+    private async void OnSessionPrepare(object sender, GEvent<object> eventData)
+    {
+        HMSCloudStorageManager.CheckRequestUserPermissionForCloudStorage();
+
+        await Task.Delay(2000);
+
+        StartCoroutine(GetAssetBundle());
+    }
+
+    private void OnSessionStart(object sender, GEvent<object> eventData)
+    {
 
     }
 
-
-
-    private void OnDisable()
+    private async void OnSessionEnd(object sender, GEvent<object> eventData)
     {
-        this.RemoveListener<object>(GEventName.SESSION_PREPARE, OnSessionPrepare);
+        gameOverCanvas.SetActive(true);
+        await Task.Delay(1000);
+        gameOverCanvas.SetActive(false);
     }
-
-    private async void StartStorage()
-    {
-        //HMSCloudStorageManager.CheckRequestUserPermissionForCloudStorage();
-        HMSCloudStorageManager.RequestPermission();
-        await Task.Delay(9000);
-
-        //string downloadDirectory = System.IO.Path.Combine(Application.persistentDataPath + "/files", "");
-
-        //var file = new HuaweiMobileServices.Utils.java.io.File(downloadDirectory + "levelendeffect");
-
-        //if (file.Exists()) { return; }
-
-        var task1 = HMSCloudStorageManager.Instance.DownloadFile("/levelendeffect.manifest", "", "");
-        var task2 = HMSCloudStorageManager.Instance.DownloadFile("/levelendeffect", "", "");
-
-        //task1.OnPaused();
-        //task1.OnCanceled();
-
-    }
-
-
-    private void OnSessionPrepare(object sender, GEvent<object> eventData)
-    {
-        StartStorage();
-    }
-
 
 }

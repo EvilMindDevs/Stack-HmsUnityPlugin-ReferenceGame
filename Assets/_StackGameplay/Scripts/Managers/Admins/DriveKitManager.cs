@@ -96,6 +96,11 @@ public class DriveKitManager : MonoBehaviour
     {
         GLog.Log($"OnSessionEnd", GLogName.DriveKitManager);
 
+        DelegateStore.UISessionEnd?.Invoke();
+
+
+        return;
+
         int number = PlayerPrefs.GetInt("SSNo", 1);
         number++;
         PlayerPrefs.SetInt("SSNo", number);
@@ -145,7 +150,6 @@ public class DriveKitManager : MonoBehaviour
         //Save image to file
         System.IO.File.WriteAllBytes(filePath + fileName, imageBytes);
 
-        DelegateStore.UISessionEnd?.Invoke();
 
         yield return new WaitForEndOfFrame();
 
